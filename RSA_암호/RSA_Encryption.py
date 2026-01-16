@@ -1,7 +1,10 @@
-import mapping_list
-import Euclidean_algorithm
 from RSA_암호.mapping_list import char_to_num
-from RSA_암호.mapping_list import num_to_char
+#n = 10000000002200000000057
+#e = 65537
+#d = 2106748859844271175069
+#p = 100000000003
+#q = 100000000019
+#Security is a Process, not a Product
 
 UNIT = 1
 char_to_num_last = char_to_num['Z']
@@ -45,7 +48,8 @@ for i in range(0, len(sentence_char_to_num), cryp_unit_size):
 #단위묶음을 암호화하는 작업
 for i in range(0, len(cryp_block)):
     calcul_var = cryp_block[i]
-    cryp_block[i] = str(pow(int(calcul_var), e, n))
+    cryp_int = pow(int(calcul_var), e, n)
+    cryp_block[i] = str(cryp_int).zfill(len(str(n)))
 
 cryp_block = "".join(cryp_block)
 print(f'🤖문장 암호의 결과입니다.\nRESULT: {cryp_block}')
