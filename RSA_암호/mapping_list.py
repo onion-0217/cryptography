@@ -12,6 +12,7 @@ for i in range(26):
 
 #26~29 사이 중 마음에 드는 수
 char_to_num[' '] = '28'
+char_to_num[','] = '29'
 
 #숫자 -> 문자 표
 num_to_char = {v: k for k, v in char_to_num.items()}
