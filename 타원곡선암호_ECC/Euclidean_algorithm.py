@@ -9,10 +9,16 @@ def euclidean_algorithm(left, right):
         if result_right == 0:
             return result_left
 
-#ed = 1 (mod Euler_n)에서의 d값 찾기_구조, 역원 찾기
-#주로 Euler_n, e의 순서로 인수를 받을 예정임
+
 def euclidean_algorithm_2(left, right):
-    #서로소 계산을 위한 몫 저장
+    modulus = left
+    target = right
+
+    if left < right:
+        left, right = right, left
+        modulus = left  # 더 큰 수가 모듈러(field) 값임
+
+    # 서로소 계산을 위한 몫 저장
     calculate_data = []
 
     while True:
@@ -20,13 +26,13 @@ def euclidean_algorithm_2(left, right):
         calculate_data.append(result_left)
         left = left % right
         if left == 0:
-            return inverse_element_algorithm(calculate_data)
+            return inverse_element_algorithm(calculate_data) % modulus
 
         result_right = right // left
         calculate_data.append(result_right)
         right = right % left
         if right == 0:
-            return inverse_element_algorithm(calculate_data)
+            return inverse_element_algorithm(calculate_data) % modulus
 
 #몫들을 이용하여 ed의 d값 찾기 알고리즘
 def inverse_element_algorithm(data):
