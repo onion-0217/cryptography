@@ -22,7 +22,15 @@ def find_2p(field, a, x1, y1):
     return [x2, y2]
 
 def find_np_sum_p(field, a, x1, y1, x2, y2):
+    if x1 == x2 and y1 == y2:
+        return find_2p(field, a, x1, y1)
+    if x1 == x2:
+        return None
+
     slope = find_lambda_two_point(field, x1, y1, x2, y2)
+    if slope[1] == 0:
+        return None
+
     dig = slope[0] * ea.euclidean_algorithm_2(slope[1], field)
     x3 = pow(dig, 2) - x1 -x2
     y3 = dig * (x1 - x3) - y1
@@ -41,10 +49,15 @@ def find_np(field, alpha, a, x1, y1):
             if result is None:
                 result = [tx, ty]
             else:
-                result = find_np_sum_p(field, a, result[0], result[1], tx, ty)
+                if tx is not None and ty is not None:
+                    result = find_np_sum_p(field, a, result[0], result[1], tx, ty)
 
-        temp_2p = find_2p(field, a, tx, ty)
-        tx, ty = temp_2p[0], temp_2p[1]
+        if tx is not None and ty is not None:
+            temp_2p = find_2p(field, a, tx, ty)
+            if temp_2p is None:
+                tx, ty = None, None
+            else:
+                tx, ty = temp_2p[0], temp_2p[1]
 
         alpha //= 2
 
